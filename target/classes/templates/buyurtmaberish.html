@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyurtma berish paneli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .order-panel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .product-image {
+            flex-basis: 45%;
+            margin-bottom: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            flex-basis: 45%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .product-image, .product-details {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Buyurtma berish</h2>
+
+    <div class="order-panel">
+        <!-- Mahsulot rasmi -->
+        <div class="product-image">
+            <img id="productImage" src="/images/solar-panels.jpg" alt="Mahsulot rasmi">
+        </div>
+
+        <!-- Mahsulot detallari -->
+        <div class="product-details">
+            <form th:action="@{/api/buyproduct}" method="POST">
+                <!-- Mahsulot turi -->
+                <label for="productType">Mahsulot turi:</label>
+                <select id="productType" name="productType" onchange="updateProductDetails()">
+                    <option value="NonAccumulator">Akkumulatorsiz</option>
+                    <option value="WithAccumulator">Akkumulator bilan</option>
+                </select>
+
+                <!-- Watti tanlash -->
+                <label for="wattage">Watti:</label>
+                <select id="wattage" name="wattage" onchange="updateProductDetails()">
+                    <option value="1KW">1KW</option>
+                    <option value="2KW">2KW</option>
+                    <option value="3KW">3KW</option>
+                    <option value="5KW">5KW</option>
+                    <option value="10KW">10KW</option>
+                    <option value="15KW">15KW</option>
+                    <option value="20KW">20KW</option>
+                    <option value="30KW">30KW</option>
+                    <option value="50KW">50KW</option>
+                </select>
+
+                <!-- Narxi -->
+                <label for="price">Narxi (UZS):</label>
+                <input type="text" id="price" name="price" readonly>
+
+                <!-- Buyurtma tugmasi -->
+                <button id="button" type="submit">Saqlash</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mahsulot narxlari va rasmlari ma'lumotlari
+    const productData = {
+        NonAccumulator: {
+            '3KW': { price: 12.5, image: '/images/solar-and-wind.jpg' },
+            '5KW': { price: 21, image: '/images/solar_panel_612x612.jpg' },
+            '10KW': { price: 41, image: '/solar-panel-images/solar-panel-nex5/sp2.jpg' },
+            '15KW': { price: 64, image: '/solar-panel-images/solar-panel-nex5/20220426104155ge1Iwj.jpg' },
+            '20KW': { price: 86, image: '/solar-panel-images/solar-panel-nex5/20kW-Solar-System-Price-in-India.jpg' },
+            '30KW': { price: 119, image: '/solar-panel-images/solar-panel-nex5/20180912201025zjiftG.jpg' },
+            '50KW': { price: 205, image: '/solar-panel-images/solar-panel-nex5/sp1.jpg' }
+        },
+        WithAccumulator: {
+            '1KW': { price: 5, image: '/solar-panel-images/1.1Kw24VCompleteOff-GridSolarPowerSystem_600x600.png' },
+            '2KW': { price: 10, image: '/images/solar_panel_612x612.jpg' },
+            '3KW': { price: 15, image: '/images/solar-panels.jpg' },
+            '5KW': { price: 25, image: '/solar-panel-images/solar-panel-nex5/5kW-Solar-System-NZ-1.webp' },
+            '10KW': { price: 50, image: '/solar-panel-images/solar-panel-nex5/sp3.jpg' },
+            '15KW': { price: 75, image: '/solar-panel-images/solar-panel-nex5/sp4.jpg' }
+        }
+    };
+
+    // Mahsulot tafsilotlarini yangilash funksiyasi
+    function updateProductDetails() {
+        const productType = document.getElementById('productType').value;
+        const wattage = document.getElementById('wattage').value;
+
+        // Select'ning mavjud bo'lmagan qiymati holati
+        if (!productData[productType] || !productData[productType][wattage]) {
+            document.getElementById('price').value = "Mahsulot mavjud emas";
+            document.getElementById('productImage').src = "/images/noimage.png";
+            document.getElementById('button').style.display = "none";
+            return;
+        }
+
+        const selectedProduct = productData[productType][wattage];
+        document.getElementById('price').value = selectedProduct.price + " mln";
+        document.getElementById('productImage').src = selectedProduct.image;
+        document.getElementById('button').style.display = "block";
+    }
+
+    // Sahifa yuklanganida boshlang'ich ma'lumotlarni o'rnatish
+    window.onload = updateProductDetails;
+</script>
+
+</body>
+</html>

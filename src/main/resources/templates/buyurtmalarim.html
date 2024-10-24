@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchi profili va buyurtmalari</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+
+        .profile-info {
+            font-size: 1.2em;
+        }
+
+        .profile-info h2 {
+            margin: 0 0 10px;
+        }
+
+        .orders {
+            margin-top: 30px;
+        }
+
+        .orders h3 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .status-complete {
+            color: green;
+        }
+
+        .status-pending {
+            color: orange;
+        }
+
+        .status-canceled {
+            color: red;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            .profile {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .profile-info {
+                font-size: 1em;
+            }
+
+            table, th, td {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-info h2 {
+                font-size: 1.5em;
+            }
+
+            table, th, td {
+                font-size: 0.8em;
+                padding: 8px;
+            }
+
+            th, td {
+                word-break: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Foydalanuvchi profili -->
+    <div class="profile">
+        <img src="https://via.placeholder.com/100" alt="Foydalanuvchi rasmi">
+        <div class="profile-info">
+            <h2 th:text="${mainClass.fullName}"></h2>
+            <p th:text="${mainClass.EMail}">Email: </p>
+            <p th:text="${mainClass.phoneNumber}">Telefon: </p>
+            <p th:text="${mainClass.location}">Manzil: </p>
+        </div>
+    </div>
+
+    <!-- Foydalanuvchi buyurtmalari -->
+    <div class="orders">
+        <h3>Buyurtmalar tarixi</h3>
+        <table th:each="mainClass, iscount : ${mainClass}">
+            <thead>
+                <tr>
+                    <th>T/r</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Watt</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p, iscount : ${mainClass.productlist}">
+                    <td th:text="${iscount.count}"></td>
+                    <td th:text="${p.productType}"></td>
+                    <td th:text="${p.productPrice}"></td>
+                    <td th:text="${p.productWatt}"></td>
+                    <td th:text="${p.createTime.toLocalDate()}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

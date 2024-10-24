@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Buyurtmalarni ko'rish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .status-new {
+            color: blue;
+        }
+
+        .status-cancelled {
+            color: red;
+        }
+
+        .status-completed {
+            color: green;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                display: inline-block;
+                width: 150px;
+            }
+
+            td {
+                text-align: center;
+            }
+
+            select {
+                width: 100%;
+            }
+
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Buyurtmalar jadvali -->
+    <div class="container">
+        <h2>Admin Panel — Buyurtmalarni ko'rish</h2>
+        <!-- Status bo'yicha filtr -->
+        <label for="statusFilter">Buyurtma holati:</label>
+        <select id="statusFilter" onchange="window.location.href=this.value;">
+            <option th:value="@{/api/adminpanel}" th:selected="${selectedStatus == 'all'}">Barcha buyurtmalar</option>
+            <option th:value="@{/api/activestatus/{status}(status='active')}" th:selected="${selectedStatus == 'active'}">Yangi buyurtmalar</option>
+            <option th:value="@{/api/activestatus/{status}(status='progress')}" th:selected="${selectedStatus == 'progress'}">Bajarilayotgan buyurtmalar</option>
+            <option th:value="@{/api/activestatus/{status}(status='finish')}" th:selected="${selectedStatus == 'finish'}">Tugatilgan buyurtmalar</option>
+        </select>
+        <!-- Buyurtmalar jadvali -->
+        <table th:each="mainClass, iscount : ${mainClasses}">
+            <thead>
+            <tr>
+                <th>T/r</th>
+                <th>User ID</th>
+                <th>Mahsulot turi</th>
+                <th>Watt</th>
+                <th>Narx (UZS)</th>
+                <th>Foydalanuvchi ismi</th>
+                <th>Manzil</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Amal</th>
+            </tr>
+            </thead>
+            <tbody id="orderTable">
+            <tr th:each="p, i : ${mainClass.productlist}">
+                <td th:text="${i.count}"></td>
+                <td th:text="${mainClass.userId}"></td>
+                <td th:text="${p.productType}"></td>
+                <td th:text="${p.productWatt}"></td>
+                <td th:text="${p.productPrice}"></td>
+                <td th:text="${mainClass.fullName}"></td>
+                <td th:text="${mainClass.location}"></td>
+                <td th:text="${mainClass.EMail}"></td>
+                <td th:text="${mainClass.phoneNumber}"></td>
+                <td th:text="${p.createTime.toLocalDate()}"></td>
+                <td th:text="${p.productStatus}"></td>
+                <td>
+                    <form th:action="@{/api/updateproductstatus}" method="post">
+                        <input type="hidden" name="productId" th:value="${p.id}" />
+                        <input type="hidden" name="productStatus" th:value="${p.productStatus.toString().toLowerCase() == 'active' ? 'progress' : (p.productStatus == 'progress' ? 'finish' : 'finish')}" />
+                        <button type="submit" th:if="${p.productStatus.toString().toLowerCase() != 'finish'}">Next Status</button>
+                        <button type="button" th:if="${p.productStatus.toString().toLowerCase() == 'finish'}" disabled>Finished</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

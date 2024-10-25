@@ -50,7 +50,7 @@ public class MainController implements Serializable {
                 userId = user.getId();
                 return "bootstrapsolarpanel";
             }else if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
-                return "redirect:/adminpanel";
+                return "adminpanel";
             }
         }
         return "redirect:/index";

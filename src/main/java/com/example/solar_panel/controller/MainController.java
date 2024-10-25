@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.*;
 
 @Controller
-@RequestMapping("/api")
 
 public class MainController implements Serializable {
     private UUID userId;
@@ -51,10 +50,10 @@ public class MainController implements Serializable {
                 userId = user.getId();
                 return "bootstrapsolarpanel";
             }else if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
-                return "redirect:/api/adminpanel";
+                return "redirect:/adminpanel";
             }
         }
-        return "redirect:/api/index";
+        return "redirect:/index";
     }
     @PostMapping("/buyproduct")
     public String buyProduct(@RequestParam(name = "productType") String productType, @RequestParam(name = "wattage") String wattage,
@@ -99,7 +98,7 @@ public class MainController implements Serializable {
                                       RedirectAttributes redirectAttributes) {
         buyurtmaBerishService.updateStatus(productId, productStatus);
         redirectAttributes.addAttribute("status", productStatus);
-        return "redirect:/api/adminpanel";
+        return "redirect:/adminpanel";
     }
 
 }

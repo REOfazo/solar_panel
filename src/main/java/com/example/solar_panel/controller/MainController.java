@@ -52,6 +52,7 @@ public class MainController implements Serializable {
             }
             if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
             return "adminpanel";
+            }
         }
         return "bootstrapsolarpanel";
     }

@@ -39,7 +39,7 @@ public class MainController implements Serializable {
     public String buyurtmaBerish() {
         return "buyurtmaberish";
     }
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String login(@RequestParam(name = "eMail") String eMail, @RequestParam(name = "password") String password) {
         Iterator<UserEntity> iterator = userService.getAllUser().iterator();
         UserEntity user;

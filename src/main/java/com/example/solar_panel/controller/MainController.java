@@ -39,7 +39,7 @@ public class MainController implements Serializable {
     public String buyurtmaBerish() {
         return "buyurtmaberish";
     }
-    @PostMapping("/login")
+    @GetMapping("/login")
     public String login(@RequestParam(name = "eMail") String eMail, @RequestParam(name = "password") String password) {
         Iterator<UserEntity> iterator = userService.getAllUser().iterator();
         UserEntity user;
@@ -50,7 +50,7 @@ public class MainController implements Serializable {
                 userId = user.getId();
                 return "bootstrapsolarpanel";
             }else if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
-                return "redirect:/adminpanel";
+                return "adminpanel";
             }
         }
         return "redirect:/";

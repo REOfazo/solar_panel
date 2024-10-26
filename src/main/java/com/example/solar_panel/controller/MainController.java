@@ -49,9 +49,9 @@ public class MainController implements Serializable {
             if (eMail.equals(user.getEMail()) && password.equals(user.getPassword())) {
                 userId = user.getId();
                 return "bootstrapsolarpanel";
-            }else if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
-                return "adminpanel";
             }
+            if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
+            return "adminpanel";
         }
         return "bootstrapsolarpanel";
     }

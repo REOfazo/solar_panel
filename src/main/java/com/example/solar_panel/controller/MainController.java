@@ -31,7 +31,7 @@ public class MainController implements Serializable {
         this.mainService = mainService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index() {
         return "login";
     }

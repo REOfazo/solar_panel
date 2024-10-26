@@ -53,7 +53,7 @@ public class MainController implements Serializable {
                 return "adminpanel";
             }
         }
-        return "redirect:/bootstrapsolarpanel";
+        return "bootstrapsolarpanel";
     }
     @PostMapping("/buyproduct")
     public String buyProduct(@RequestParam(name = "productType") String productType, @RequestParam(name = "wattage") String wattage,

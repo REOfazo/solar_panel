@@ -106,10 +106,10 @@
         <!-- Status bo'yicha filtr -->
         <label for="statusFilter">Buyurtma holati:</label>
         <select id="statusFilter" onchange="window.location.href=this.value;">
-            <option th:value="@{/api/adminpanel}" th:selected="${selectedStatus == 'all'}">Barcha buyurtmalar</option>
-            <option th:value="@{/api/activestatus/{status}(status='active')}" th:selected="${selectedStatus == 'active'}">Yangi buyurtmalar</option>
-            <option th:value="@{/api/activestatus/{status}(status='progress')}" th:selected="${selectedStatus == 'progress'}">Bajarilayotgan buyurtmalar</option>
-            <option th:value="@{/api/activestatus/{status}(status='finish')}" th:selected="${selectedStatus == 'finish'}">Tugatilgan buyurtmalar</option>
+            <option th:value="@{/adminpanel}" th:selected="${selectedStatus == 'all'}">Barcha buyurtmalar</option>
+            <option th:value="@{/activestatus/{status}(status='active')}" th:selected="${selectedStatus == 'active'}">Yangi buyurtmalar</option>
+            <option th:value="@{/activestatus/{status}(status='progress')}" th:selected="${selectedStatus == 'progress'}">Bajarilayotgan buyurtmalar</option>
+            <option th:value="@{/activestatus/{status}(status='finish')}" th:selected="${selectedStatus == 'finish'}">Tugatilgan buyurtmalar</option>
         </select>
         <!-- Buyurtmalar jadvali -->
         <table th:each="mainClass, iscount : ${mainClasses}">
@@ -143,7 +143,7 @@
                 <td th:text="${p.createTime.toLocalDate()}"></td>
                 <td th:text="${p.productStatus}"></td>
                 <td>
-                    <form th:action="@{/api/updateproductstatus}" method="post">
+                    <form th:action="@{/updateproductstatus}" method="post">
                         <input type="hidden" name="productId" th:value="${p.id}" />
                         <input type="hidden" name="productStatus" th:value="${p.productStatus.toString().toLowerCase() == 'active' ? 'progress' : (p.productStatus == 'progress' ? 'finish' : 'finish')}" />
                         <button type="submit" th:if="${p.productStatus.toString().toLowerCase() != 'finish'}">Next Status</button>

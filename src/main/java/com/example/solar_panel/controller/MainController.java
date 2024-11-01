@@ -40,7 +40,7 @@ public class MainController implements Serializable {
         return "buyurtmaberish";
     }
     @PostMapping("/login")
-    public String login(@RequestParam(name = "eMail") String eMail, @RequestParam(name = "password") String password) {
+    public String login(@RequestParam(value = "eMail") String eMail, @RequestParam(value = "password") String password) {
         Iterator<UserEntity> iterator = userService.getAllUser().iterator();
         UserEntity user;
 
@@ -59,8 +59,8 @@ public class MainController implements Serializable {
         return "bootstrapsolarpanel";
     }
     @PostMapping("/buyproduct")
-    public String buyProduct(@RequestParam(name = "productType") String productType, @RequestParam(name = "wattage") String wattage,
-                             @RequestParam(name = "price") String price) {
+    public String buyProduct(@RequestParam(value = "productType") String productType, @RequestParam(value = "wattage") String wattage,
+                             @RequestParam(value = "price") String price) {
 
         BuyurtmaBerish buyurtmaBerish = new BuyurtmaBerish();
         UserEntity user = userService.getOne(userId);

@@ -112,7 +112,7 @@ public class MainController implements Serializable {
         user.setFullName(fullName);
         user.setEMail(eMail);
         user.setPhoneNumber(phoneNumber);
-        user.setAddress(address);
+        user.setLocation(address);
         user.setPassword(password);
         user.setRepeatPassword(repeatPassword);
         

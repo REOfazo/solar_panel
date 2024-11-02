@@ -43,20 +43,19 @@ public class MainController implements Serializable {
     public String login(@RequestParam(value = "eMail") String eMail, @RequestParam(value = "password") String password) {
         Iterator<UserEntity> iterator = userService.getAllUser().iterator();
         UserEntity user;
+        String str = "login";
 
         while (iterator.hasNext()) {
             user = iterator.next();
             if (eMail.equals(user.getEMail()) && password.equals(user.getPassword())) {
                 userId = user.getId();
-                return "bootstrapsolarpanel";
+                str = "bootstrapsolarpanel";
             }
-            if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("spacialPasswordAdmin1234")) {
-                System.out.println(eMail);
-                System.out.println(password);
-            return "adminpanel";
+            if (eMail.equals("adminADMIN1234@gmail.com") && password.equals("specialPasswordAdmin1234")) {
+            str = "adminpanel";
             }
         }
-        return "index";
+        return str;
     }
     @PostMapping("/buyproduct")
     public String buyProduct(@RequestParam(value = "productType") String productType, @RequestParam(value = "wattage") String wattage,

@@ -121,24 +121,24 @@
     <!-- Ro'yxatdan o'tish formasi -->
     <div class="form-container" id="registerForm">
         <h2>Ro'yxatdan O'tish</h2>
-        <form>
+        <form th:action="@{/signup}">
             <label for="fullname">To'liq Ism:</label>
-            <input type="text" id="fullname" placeholder="To'liq ismingizni kiriting" required>
+            <input name="fullName" type="text" id="fullname" placeholder="To'liq ismingizni kiriting" required>
 
             <label for="email">Email:</label>
-            <input type="email" id="registerEmail" placeholder="Emailingizni kiriting" required>
+            <input name="eMail" type="email" id="registerEmail" placeholder="Emailingizni kiriting" required>
 
             <label for="phone">Telefon:</label>
-            <input type="tel" id="phone" placeholder="Telefon raqamingizni kiriting" required>
+            <input name="phoneNumber" type="tel" id="phone" placeholder="Telefon raqamingizni kiriting" required>
 
             <label for="address">Manzil:</label>
-            <input type="text" id="address" placeholder="Manzilingizni kiriting" required>
+            <input name="address" type="text" id="address" placeholder="Manzilingizni kiriting" required>
 
             <label for="password">Parol:</label>
-            <input type="password" id="registerPassword" placeholder="Parolingizni kiriting" required>
+            <input name="password" type="password" id="registerPassword" placeholder="Parolingizni kiriting" required>
 
             <label for="confirmPassword">Parolni Tasdiqlash:</label>
-            <input type="password" id="confirmPassword" placeholder="Parolni tasdiqlang" required>
+            <input name="repeatPassword" type="password" id="confirmPassword" placeholder="Parolni tasdiqlang" required>
 
             <button type="submit">Ro'yxatdan o'tish</button>
         </form>

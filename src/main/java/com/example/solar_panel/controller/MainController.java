@@ -103,5 +103,20 @@ public class MainController implements Serializable {
         redirectAttributes.addAttribute("status", productStatus);
         return "redirect:/adminpanel";
     }
+    @PostMapping("/signup")
+    public String signUp(@RequestParam(value = "fullName") String fullName, @RequestParam(value = "eMail") String eMail, 
+                        @RequestParam(value = "phoneNumber") String phoneNumber, @RequestParam(value = "address") String address,
+                        @RequestParam(value = "password") String password, @RequestParam("repeatPassword") String repeatPassword) {
 
+        UserEntity user = new UserEntity();
+        user.setFullName(fullName);
+        user.setEMail(eMail);
+        user.setPhoneNumber(phoneNumber);
+        user.setAddress(address);
+        user.setPassword(password);
+        user.setRepeatPassword(repeatPassword);
+        
+        userService.save(user);
+        return "index";
+    }
 }

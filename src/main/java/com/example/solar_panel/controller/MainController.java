@@ -115,6 +115,6 @@ public class MainController implements Serializable {
         user.setPassword(password);
         
         userService.save(user);
-        return "index";
+        return "login";
     }
 }

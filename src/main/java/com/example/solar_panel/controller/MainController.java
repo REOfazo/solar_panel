@@ -114,7 +114,6 @@ public class MainController implements Serializable {
         user.setPhoneNumber(phoneNumber);
         user.setLocation(address);
         user.setPassword(password);
-        user.setRepeatPassword(repeatPassword);
         
         userService.save(user);
         return "index";

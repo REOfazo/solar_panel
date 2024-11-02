@@ -77,7 +77,7 @@ public class MainController implements Serializable {
     public String mainClass(Model model) {
         MainClass mainClass = mainService.modelFunction(userId);
         model.addAttribute("mainClass", mainClass);
-        return "/buyurtmalarim";
+        return "buyurtmalarim";
     }
     @GetMapping("/adminpanel")
     public String getAllOrders(Model model) {

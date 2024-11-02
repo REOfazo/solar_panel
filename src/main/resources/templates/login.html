@@ -121,7 +121,7 @@
     <!-- Ro'yxatdan o'tish formasi -->
     <div class="form-container" id="registerForm">
         <h2>Ro'yxatdan O'tish</h2>
-        <form th:action="@{/signup}">
+        <form th:action="@{/signup}" method="post">
             <label for="fullname">To'liq Ism:</label>
             <input name="fullName" type="text" id="fullname" placeholder="To'liq ismingizni kiriting" required>
 
